@@ -20,7 +20,7 @@ public class Product extends Model {
     @Constraints.Required
     private String name;
 
-    @Constraints.Required
+    @ManyToOne
     private String category;
 
     @Constraints.Required
