@@ -1,4 +1,4 @@
-@(products: List[models.Product])
+@(products: List[models.Product], Categories: List[models.Category])
 
 <!-- Pass page title and content {html between braces} to the main view -->
 @main("Products") {
@@ -7,7 +7,21 @@
       <div class="col-sm-2">
         <div class="well">
           <h4>Categories</h4>
-        </div>
+          <div class="list -group">
+
+            <a href="@routes.HomeController.products(0)" class="list-group-item"> All categories </a>
+
+          @for(c <- Categories) {
+            <a href="@routes.HomeController.products(c.getId)" class="list-group-item">@c.getName
+            
+              <span class="badge">@c.getProducts.size()</span>
+        </a>
+              
+          }
+          </div>
+
+
+      
       </div>
       <div class="col-sm-10">
 

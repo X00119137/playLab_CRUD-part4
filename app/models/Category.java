@@ -5,7 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.avaje.ebean.Model;
-import javax.persistence.*;
+
 
 import play.data.format.*;
 import play.data.validation.*;
@@ -28,19 +28,34 @@ public class Category extends Model {
     public Category() {
     }
 
-    public Category(Long id, String name, List<Product> products) {
+    public Category(Integer id, String name, List<Product> products) {
 
-        this.setName(name);
-        this.setId(id);
-        this.setProducts(products);
+        this.id = id;
+        this.name = name;
+        this.Products = products;
 
     }
+
+  
         public static Finder<Long,Category> find = new Finder<Long,Category>(Category.class);
 
 
         public static  List<Category> findAll() {
              return Category.find.where().orderBy("name asc").findList();
         }
+
+     public static Map<String,String> options() {
+
+LinkedHashMap<String,String> options = new LinkedHashMap<>();
+
+
+  for(Category c: Category.findAll()) {
+      options.put(c.getId().toString(),c.getName());
+
+     }
+return options;
+
+     }
 
 
     public Long getId() {

@@ -36,11 +36,31 @@ public class HomeController extends Controller {
         return ok(about.render());
     }
 
-    public Result products() {
+    public Result products(Long cat) {
 
         // Get list of all categories in ascending order
-        List<Product> productsList = Product.findAll();
-        return ok(products.render(productsList));
+        
+
+        List<Category> categoriesList = Category.findAll();
+
+         List<Product> productsList = new ArrayList <Product>();
+        return ok(products.render(productsList,categoriesList));
+
+
+        if(cat == 0) {
+
+            productsList = Product.findAll();
+
+
+        }
+         else  {
+
+productsList = Category.find.ref(cat).getProducts();
+
+         }     
+
+    return ok(products.render(productsList,categoriesList));
+
     }
 
     // Render and return  the add new product page
@@ -84,7 +104,7 @@ public class HomeController extends Controller {
         flash("success", "Product " + p.getName() + " has been created/ updated");
 
         // Redirect to the admin home
-        return redirect(controllers.routes.HomeController.products());
+        return redirect(controllers.routes.HomeController.products(Long id);
     }
 
     // Update a product by ID
@@ -112,4 +132,7 @@ public class HomeController extends Controller {
         // Redirect to products page
         return redirect(routes.HomeController.products());
     }
+
 }
+
+
